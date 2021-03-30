@@ -41,9 +41,14 @@ Mx=[real(W),-gamma*imag(W);...
     1/gamma*imag(W),real(W)];
 
 %% second largest singular value
-vec=SingularValues(Mx);
-% vec= svds(Mx);
-
+test1=isnan(Mx);
+test2=Mx==Inf;
+if sum(test1(:))==0&&sum(test2(:))==0
+    vec=SingularValues(Mx);
+    % vec= svds(Mx,2); % slow calculates singular value directions also...
+else
+    vec=zeros(2,1);
+end
 val(i)=vec(2);
 i=i+1;
 end
